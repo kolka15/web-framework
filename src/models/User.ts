@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
+import { USERS_URL } from '../constants'
 
 interface UserProps {
     id?: number
@@ -42,9 +43,30 @@ export class User {
     }
 
     fetch(): void {
-        axios.get(`http://localhost:3000/users/${this.get('id')}`)
+        axios.get(`${USERS_URL}${this.get('id')}`)
             .then((response: AxiosResponse): void => {
                 this.set(response.data)
             })
+    }
+
+    save(): void {
+        const id = this.get('id')
+        if (id) {
+            axios.put(`${USERS_URL}${id}`, this.data)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            axios.post(`${USERS_URL}`, this.data)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 }
