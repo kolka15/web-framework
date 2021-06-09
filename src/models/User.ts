@@ -1,4 +1,5 @@
 import { Eventing } from './Eventing'
+import {Sync} from './Sync'
 
 export interface UserProps {
     id?: number
@@ -6,21 +7,12 @@ export interface UserProps {
     age?: number
 }
 
+const rootUrl = 'http://localhost:300/users'
+
 export class User {
 
     public events: Eventing = new Eventing()
-
-    constructor(private data: UserProps) {
-    }
-
-    get(propName: string): string | number {
-        // @ts-ignore
-        return this.data[propName]
-    }
-
-    set(update: UserProps): void {
-        Object.assign(this.data, update)
-    }
+    public sync: Sync<UserProps> = new Sync<UserProps>(rootUrl)
 
 
 }
