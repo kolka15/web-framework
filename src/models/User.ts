@@ -2,6 +2,7 @@ import { Model } from './Model'
 import { Attributes } from './Attributes'
 import { ApiSync } from './ApiSync'
 import { Eventing } from './Eventing'
+import { USERS_URL } from '../constants'
 
 export interface UserProps {
     id?: number
@@ -9,14 +10,12 @@ export interface UserProps {
     age?: number
 }
 
-const ROOT_URL = 'http://localhost:3000/users'
-
 export class User extends Model<UserProps> {
     static buildUser(attrs: UserProps): User {
         return new User(
             new Attributes<UserProps>(attrs),
             new Eventing(),
-            new ApiSync<UserProps>(ROOT_URL)
+            new ApiSync<UserProps>(USERS_URL)
         )
     }
 }

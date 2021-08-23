@@ -1,9 +1,10 @@
-import { User } from './models/User'
+import { Collection} from './models/Collection'
+import { USERS_URL } from './constants'
 
-const user = User.buildUser({ id:1, name: 'more newer', age: 100 })
+const collection = new Collection(USERS_URL)
 
-user.on('change', () => {
-    console.log(user)
+collection.on('change', () => {
+    console.log('collection', collection)
 })
 
-user.fetch()
+collection.fetch()
