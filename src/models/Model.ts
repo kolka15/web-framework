@@ -27,17 +27,20 @@ export class Model<T extends HasId> {
         private sync: Sync<T>
     ) {}
 
-    get on() {
+    /* shorthand */
+    on = this.events.on
+    trigger = this.events.trigger
+    get = this.attributes.get
+
+    /*get on() {
         return this.events.on
     }
-
     get trigger() {
         return this.events.trigger
     }
-
     get get() {
         return this.attributes.get
-    }
+    }*/
 
     set(update: T): void {
         this.attributes.set(update)
@@ -58,7 +61,7 @@ export class Model<T extends HasId> {
 
     save(): void {
         this.sync.save(this.attributes.getAll())
-            .then((res): void => {
+            .then((): void => {
                 this.trigger('save')
             })
             .catch(() => {
