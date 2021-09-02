@@ -1,7 +1,6 @@
-import { Collection} from './models/Collection'
-import { USERS_URL } from './constants'
+import { User } from './models/User'
 
-const collection = new Collection(USERS_URL)
+const collection = User.buildUserCollection()
 
 collection.on('change', () => {
     console.log('collection', collection)
